@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهذيب القلوب | شيخنا محمد الغليظ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === متغيرات الألوان والتصميم (Theming) === */
+        :root {
+            /* === الوضع النهاري (Light Liquid Glass) === */
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --orb-color-1: rgba(255, 154, 158, 0.4);
+            --orb-color-2: rgba(161, 196, 253, 0.4);
+            
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            
+            --text-main: #2d3436;
+            --text-secondary: #636e72;
+            --accent-color: #0984e3;
+            --highlight-bg: rgba(9, 132, 227, 0.1);
+        }
+
+        /* === الوضع الليلي (Dark Liquid Glass) === */
+        [data-theme="dark"] {
+            --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --orb-color-1: rgba(79, 172, 254, 0.3);
+            --orb-color-2: rgba(0, 242, 96, 0.15);
+
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            
+            --text-main: #dfe6e9;
+            --text-secondary: #b2bec3;
+            --accent-color: #74b9ff;
+            --highlight-bg: rgba(116, 185, 255, 0.15);
+        }
+
+        /* === الأساسيات === */
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: color 0.5s ease, background 0.5s ease;
+            position: relative;
+        }
+
+        /* === خلفية متحركة (Orbs) === */
+        .background-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: floatOrb 20s infinite ease-in-out alternate;
+        }
+        .orb-1 {
+            width: 500px; height: 500px;
+            background: var(--orb-color-1);
+            top: -10%; right: -10%;
+        }
+        .orb-2 {
+            width: 400px; height: 400px;
+            background: var(--orb-color-2);
+            bottom: -10%; left: -10%;
+            animation-delay: -5s;
+        }
+        
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* === الهيدر الزجاجي === */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%; /* زيادة العرض لاستيعاب الروابط */
+            max-width: 1200px;
+            z-index: 1000;
+            padding: 15px 30px;
+            border-radius: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled {
+            top: 10px;
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        [data-theme="dark"] header.scrolled {
+            background: rgba(15, 32, 39, 0.9);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .nav-links { display: flex; gap: 10px; list-style: none; flex-wrap: wrap; justify-content: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            background: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            background: var(--highlight-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            min-width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            margin-right: 10px;
+        }
+        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); }
+
+        /* === الحاوية والبطاقات === */
+        .container {
+            max-width: 1000px;
+            margin: 160px auto 40px;
+            padding: 0 20px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 50px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .glass-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0;
+            width: 6px;
+            background: var(--accent-color);
+            opacity: 0.8;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--glass-border);
+            padding-bottom: 15px;
+        }
+        
+        .section-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            background: var(--highlight-bg);
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        h2 { font-size: 1.8rem; color: var(--text-main); margin: 0; }
+
+        .content-item { margin-bottom: 20px; line-height: 1.9; }
+        .label {
+            display: inline-block;
+            background: var(--highlight-bg);
+            color: var(--accent-color);
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-left: 8px;
+            margin-bottom: 5px;
+        }
+        
+        ul { list-style: none; }
+        ul li {
+            position: relative;
+            padding-right: 25px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+        ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            position: absolute;
+            right: 0;
+            top: -5px;
+        }
+
+        /* === قسم الشيخ === */
+        .sheikh-profile { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .sheikh-img-container { position: relative; margin-bottom: 25px; }
+        .sheikh-avatar {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.5s;
+        }
+        .sheikh-avatar:hover { transform: scale(1.05) rotate(2deg); }
+        
+        .social-grid { display: flex; gap: 15px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
+        .social-btn {
+            width: 50px; height: 50px;
+            border-radius: 15px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .social-btn:hover { background: var(--accent-color); color: white; transform: translateY(-5px); }
+
+        /* === قسم أبجديات === */
+        .abjadiyat-layout { display: flex; align-items: center; gap: 30px; }
+        .abjadiyat-img {
+            width: 140px; height: 140px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: var(--glass-shadow);
+        }
+        .btn-cta {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .btn-cta:hover { transform: scale(1.05); }
+
+        /* === الفوتر === */
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+        }
+        .dev-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(0,0,0,0.05);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 15px;
+        }
+        [data-theme="dark"] .dev-badge { background: rgba(255,255,255,0.1); }
+
+
+        @media (max-width: 768px) {
+            
+            header {
+                width: 95%;
+                top: 15px;
+                padding: 15px;
+                border-radius: 30px;
+                flex-wrap: wrap; 
+                justify-content: space-between;
+                gap: 15px; 
+            }
+
+            .logo {
+                order: 1;
+                font-size: 1.1rem;
+                flex-grow: 1;
+            }
+
+            .theme-toggle {
+                order: 2;
+                margin: 0;
+                width: 38px; height: 38px;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto; 
+                white-space: nowrap; 
+                padding-bottom: 5px; 
+                gap: 10px;
+                -ms-overflow-style: none; 
+                scrollbar-width: none; 
+            }
+            .nav-links::-webkit-scrollbar {
+                display: none; 
+            }
+
+            .nav-links a {
+                display: inline-block;
+                padding: 8px 16px;
+                background: rgba(0,0,0,0.05);
+                border-radius: 20px;
+                font-size: 0.85rem;
+            }
+            [data-theme="dark"] .nav-links a {
+                background: rgba(255,255,255,0.1);
+            }
+
+            .container {
+                margin-top: 190px;
+                padding: 0 15px;
+            }
+
+            .glass-card {
+                padding: 25px 20px; 
+                border-radius: 20px;
+            }
+
+            h2 { font-size: 1.4rem; } 
+
+            .sheikh-avatar {
+                width: 140px; height: 140px; 
+            }
+
+
+            .abjadiyat-layout {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .abjadiyat-img {
+                width: 100px; height: 100px; 
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .section-icon {
+                width: 50px; height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+        /* === تصميم البرجر منيو للموبايل === */
+        
+        /* إخفاء زر القائمة في الشاشات الكبيرة */
+        .menu-btn { display: none; }
+
+        @media (max-width: 768px) {
+            
+            header {
+                padding: 15px 20px;
+                flex-wrap: wrap; /* يسمح بكسر السطر للقائمة */
+            }
+
+            /* إظهار زر البرجر */
+            .menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                color: var(--accent-color);
+                cursor: pointer;
+                order: 3; /* ترتيبه أقصى اليسار */
+                width: 40px; height: 40px;
+                border-radius: 50%;
+                background: var(--highlight-bg);
+                transition: transform 0.3s;
+            }
+            .menu-btn:active { transform: scale(0.9); }
+
+            /* ترتيب العناصر في الهيدر */
+            .logo { order: 1; flex-grow: 1; }
+            .theme-toggle { order: 2; margin-left: 10px; margin-right: 0; }
+            
+            /* قائمة الروابط (مخفية افتراضياً) */
+            .nav-links {
+                display: none; /* مخفية */
+                width: 100%;
+                order: 4; /* تنزل سطر جديد */
+                flex-direction: column;
+                background: rgba(255,255,255,0.05); /* خلفية خفيفة جداً */
+                margin-top: 15px;
+                border-radius: 15px;
+                padding: 10px;
+                border-top: 1px solid rgba(0,0,0,0.05);
+                animation: slideDown 0.3s ease-out;
+            }
+            
+            /* الكلاس الذي يضاف عند الفتح */
+            .nav-links.active {
+                display: flex;
+            }
+
+            /* تصميم روابط القائمة المنسدلة */
+            .nav-links a {
+                display: block;
+                text-align: center;
+                width: 100%;
+                padding: 12px;
+                border-radius: 10px;
+                margin-bottom: 5px;
+                background: transparent;
+                border: 1px solid transparent;
+            }
+            .nav-links a:hover {
+                background: var(--highlight-bg);
+                border-color: var(--accent-color);
+            }
+
+            /* مسافة للجسم عشان الهيدر */
+            .container { margin-top: 100px; }
+        }
+
+        /* أنيميشن لفتح القائمة */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <header id="navbar">
+        <a href="#" class="logo">
+            <i class="fas fa-heartbeat"></i> تهذيب القلوب
+        </a>
+
+        <div class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hearts">القلوب</a></li>
+            <li><a href="#self">النفس</a></li>
+            <li><a href="#desires">الشهوات</a></li>
+            <li><a href="#tongue">اللسان</a></li>
+            <li><a href="#anger">الغضب</a></li>
+            <li><a href="#sheikh">الشيخ</a></li>
+            <li><a href="#abjadiyat">أبجديات</a></li>
+        </ul>
+        <div class="theme-toggle" id="themeBtn" title="تغيير الوضع">
+            <i class="fas fa-adjust"></i>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section id="hearts" class="glass-card">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-heart"></i></div>
+                <h2>أولاً: كتاب شرح عجائب القلوب</h2>
+            </div>
+            
+            <div class="content-item">
+                <span class="label">مكانة القلب:</span>
+                القلب هو أشرف ما في الإنسان، فهو العالم بالله، والعامل له، والمتقرب إليه، أما الجوارح فهي أتباع وخدم له يستخدمها القلب استخدام الملوك للعبيد.
+            </div>
+
+            <div class="content-item">
+                <span class="label">طبيعة القلب والصراع فيه:</span>
+                القلب بفطرته قابل للهدي، لكنه يميل للشهوة والهوى، وهو ميدان دائم للتدافع بين جند الملائكة وجند الشياطين.
+            </div>
+
+            <div class="content-item">
+                <span class="label">سلاح المواجهة:</span>
+                ذكر الله تعالى هو السلاح الوحيد لطرْد جند الشيطان، فإذا وقعت الغفلة انبسط الشيطان، وإذا ذُكر الله خنس،.
+            </div>
+
+            <div class="content-item">
+                <span class="label">مداخل الشيطان العظيمة:</span>
+                <ul>
+                    <li><strong>الحسد والحرص:</strong> يعميان بصيرة العبد ويجعلانه يرى المنكر حسناً.</li>
+                    <li><strong>الغضب والشهوة:</strong> الغضب غول العقل، وعندما يضعف جند العقل يلعب الشيطان بالإنسان كما يلعب الصبي بالكرة.</li>
+                    <li><strong>حب التزيين:</strong> في المنزل والثياب والأثاث، مما يضيع عمر الإنسان في الانشغال بها،.</li>
+                    <li><strong>الشبع:</strong> فإنه يقوي الشهوة ويثقل العبد عن الطاعات.</li>
+                    <li><strong>الطمع في الناس والعجلة:</strong> فالطمع يؤدي للمداهنة، والعجلة من الشيطان.</li>
+                    <li><strong>حب المال وسوء الظن بالمسلمين:</strong> المال يفسد القلب ويؤدي للبخل، وسوء الظن يدفع لاحتقار الناس والبحث عن عيوبهم،.</li>
+                </ul>
+            </div>
+
+            <div class="content-item">
+                <span class="label">أقسام القلوب في الثبات:</span>
+                <ul>
+                    <li><strong>قلب معمور بالتقوى:</strong> تنكشف له خواطر الخير من خزائن الغيب.</li>
+                    <li><strong>قلب مخذول:</strong> مشحون بالهوى والخبائث، فيسودّ ويظلم، ولا تؤثر فيه المواعظ،.</li>
+                    <li><strong>قلب متردد:</strong> تتجاذبه خواطر الخير (الملَك) وخواطر الشر (الشيطان)، والعبرة فيه بما يغلب عليه،.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="self" class="glass-card">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-walking"></i></div>
+                <h2>ثانيًا: كتاب رياضة النفس وتهذيب الأخلاق</h2>
+            </div>
+
+            <div class="content-item">
+                <span class="label">حقيقة الخلق:</span>
+                هو هيئة في النفس راسخة تصدر عنها الأفعال بسهولة ويسر؛ فإن كانت الأفعال جميلة سمي خلقاً حسناً، وإن كانت قبيحة سمي خلقاً سيئاً،.
+            </div>
+
+            <div class="content-item">
+                <span class="label">إمكانية تغيير الخلق:</span>
+                الأخلاق تقبل التغيير بالرياضة والمجاهدة، ولو كانت لا تتغير لما كان للمواعظ والوصايا معنى.
+            </div>
+
+            <div class="content-item">
+                <span class="label">الهدف من الرياضة:</span>
+                ليس قمع الشهوات بالكلية، بل ردها إلى الاعتدال (الوسط بين الإسراف والتقتير)، فالغضب مطلوب للجهاد، والشهوة مطلوبة لبقاء النسل،،.
+            </div>
+
+            <div class="content-item">
+                <span class="label">طرق معرفة عيوب النفس:</span>
+                <ul>
+                    <li>الجلوس بين يدي شيخ بصير بعيوب النفس.</li>
+                    <li>اتخاذ صديق صدوق بصير متدين ينبه على المكروه من الأخلاق.</li>
+                    <li>الاستفادة من ألسنة الأعداء؛ فعدو مشاجر يذكر عيوبك أنفع من صديق يداهنك.</li>
+                    <li>مخالطة الناس، فكل ما تراه مذموماً فيهم تجتنبه في نفسك.</li>
+                </ul>
+            </div>
+
+            <div class="content-item">
+                <span class="label">تربية الصبيان:</span>
+                الصبي أمانة، وقلبه جوهرة ساذجة قابلة لكل نقش. يجب تعويده على خشونة المأكل والمفرش، ومنعه من الفخر على أقرانه، وتعليمه القرآن وأحاديث الأخيار، وتخويفه من الكذب والخيانة،،.
+            </div>
+        </section>
+
+        <section id="desires" class="glass-card">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-hand-paper"></i></div>
+                <h2>ثالثًا: كتاب كسر الشهوتين (البطن والفرج)</h2>
+            </div>
+
+            <div class="content-item">
+                <span class="label">شهوة البطن:</span>
+                من أعظم المهلكات، وهي أصل شهوة الفرج والطمع في المال.
+            </div>
+
+            <div class="content-item">
+                <span class="label">الاعتدال في الأكل:</span>
+                يُنصح برفع اليد عن الطعام والعبد ما يزال يشتهيه، فذلك يصح به البدن وتصفو به الفكرة،.
+            </div>
+
+            <div class="content-item">
+                <span class="label">آفات الشبع:</span>
+                يورث كثرة النوم، وبلادة الذهن، ويجلب الأمراض.
+            </div>
+
+            <div class="content-item">
+                <span class="label">شهوة الفرج:</span>
+                جعلت لبقاء النسل وليذوق الإنسان لذة يقيس عليها لذات الآخرة، لكنها إذا لم تُرَدّ للاعتدال جرت آفات عظيمة كالعشق والفواحش،.
+            </div>
+        </section>
+
+        <section id="tongue" class="glass-card">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-comment-slash"></i></div>
+                <h2>رابعًا: كتاب آفات اللسان</h2>
+            </div>
+
+            <div class="content-item">
+                <span class="label">فضيلة الصمت:</span>
+                اللسان من أعظم نعم الله لكن خطره كبير، والصمت يجمع الهم ويفرغ الفكر.
+            </div>
+
+            <div class="content-item">
+                <span class="label">أهم الآفات:</span>
+                <ul>
+                    <li><strong>الكلام فيما لا يعني:</strong> وهو ضياع لرأس مال العبد وهو عمره.</li>
+                    <li><strong>الخوض في الباطل:</strong> كذكر مجالس الخمر ومعاصي الفساق.</li>
+                    <li><strong>المراء والجدال:</strong> يهدف للترفع وإظهار الفضل، وعلاجه كسر الكبر،.</li>
+                    <li><strong>الفحش والسب:</strong> مصدره الخبث واللؤم، وهو مذموم ومنهي عنه.</li>
+                    <li><strong>المزاح:</strong> منهي عنه إذا كان فيه إفراط أو مداومة، أما اليسير الصادق الذي يطيب النفس فلا بأس به.</li>
+                    <li><strong>الغيبة:</strong> هي ذكر الأخ بما يكره، وهي من الكبائر. <strong>علاجها:</strong> العلم بأنها تنقل حسناتك إلى من اغتبته، والاشتغال بعيوب نفسك عن عيوب الآخرين.</li>
+                    <li><strong>الأعذار المرخصة فيها:</strong> التظلم، الاستعانة على تغيير المنكر، الاستفتاء، تحذير المسلمين، الملقبون بلقب يعرفون به، والمجاهر بالفسق.</li>
+                    <li><strong>النميمة:</strong> نقل قول إنسان في آخر للإفساد، وهي تمنع من دخول الجنة.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="anger" class="glass-card">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-fire-alt"></i></div>
+                <h2>خامسًا: كتاب ذم الغضب والحقد والحسد</h2>
+            </div>
+
+            <div class="content-item">
+                <span class="label">حقيقة الغضب:</span>
+                شعلة من النار تغلي بها دم القلب لطلب الانتقام،.
+            </div>
+
+            <div class="content-item">
+                <span class="label">علاج الغضب:</span>
+                <ul>
+                    <li><strong>علمياً:</strong> تذكر فضائل كظم الغيظ، وتخويف النفس من عقاب الله،.</li>
+                    <li><strong>عملياً:</strong> الاستعاذة، السكوت، وتغيير الحال (الجلوس أو الاضطجاع)، والوضوء،.</li>
+                </ul>
+            </div>
+
+            <div class="content-item">
+                <span class="label">الحقد:</span>
+                هو ثمرة الغضب إذا كُظم لعجز عن التشفي، فيحتقن في الباطن.
+            </div>
+
+            <div class="content-item">
+                <span class="label">الحسد:</span>
+                كراهة النعمة عند الغير وحب زوالها.
+                <br><strong>مضرته:</strong> يضر الحاسد في دينه (بسخطه على قضاء الله) ودنياه (بألم قلبه وكمده)، بينما ينتفع المحسود بدينياً لأن المظلوم يُعطى من حسنات ظالمه،.
+            </div>
+
+            <div class="content-item">
+                <span class="label">علاجه:</span>
+                الرضا بالقضاء، والزهد في الدنيا، وإكراه النفس على فعل نقيض ما يأمر به الحسد كالثناء على المحسود والتواضع له،.
+            </div>
+        </section>
+
+        <section class="glass-card" style="border-right: 8px solid var(--accent-color);">
+            <div class="section-header" style="border: none; padding: 0;">
+                <h2><i class="fas fa-lightbulb"></i> الخلاصة</h2>
+            </div>
+            <p style="font-size: 1.15rem; line-height: 2; color: var(--text-main); margin-top: 15px;">
+                إن إصلاح القلب هو مفتاح النجاة، ورياضة النفس تهدف إلى التوسط والاعتدال في كل شيء، واللسان هو الميدان الأكبر للآفات التي يجب الحذر منها بالصمت والذكر. تشبه النفس في علاجها البدن؛ فكما يعالج المرض بضده (الحرارة بالبرودة)، تعالج الرذائل بأضدادها (البخل بالسخاء، والكبر بالتواضع)،.
+            </p>
+        </section>
+
+        <section id="sheikh" class="glass-card sheikh-profile">
+            <h2 style="margin-bottom: 25px;">عن شيخنا ومربينا</h2>
+            
+            <div class="sheikh-img-container">
+                <img src="shaikh.jpg" alt="الشيخ محمد الغليظ" class="sheikh-avatar">
+            </div>
+            
+            <h3 style="color: var(--accent-color); margin-bottom: 10px;">فضيلة الشيخ د. محمد الغليظ</h3>
+            <p style="max-width: 600px; color: var(--text-secondary); margin-bottom: 20px;">
+                هو شيخنا الفاضل، الطبيب الذي داوى القلوب، يتميز بأسلوبه القريب من الشباب ولغته التي تمس الواقع، له قبول واسع وجهود مشهودة في مجال التزكية وإصلاح النفوس. حفظه الله ونفع به.
+            </p>
+
+            <div class="social-grid">
+                <a href="https://t.me/moh_elghaleez" target="_blank" class="social-btn" title="تيليجرام" style="color: #0088cc;"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://youtube.com/@mohelghaleez?si=uYOjnxB-xT8_Rj2j" target="_blank" class="social-btn" title="يوتيوب" style="color: #ff0000;"><i class="fab fa-youtube"></i></a>
+                <a href="https://instagram.com/mohelghaleez" target="_blank" class="social-btn" title="انستجرام" style="color: #E1306C;"><i class="fab fa-instagram"></i></a>
+                <a href="https://facebook.com/MohElghaleez" target="_blank" class="social-btn" title="فيسبوك" style="color: #1877f2;"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </section>
+
+        <section id="abjadiyat" class="glass-card">
+            <div class="abjadiyat-layout">
+                <img src="abgd.png" alt="أكاديمية أبجديات" class="abjadiyat-img">
+                <div>
+                    <h2 style="margin-bottom: 10px;">أكاديمية أبجديات (Abjadiyat)</h2>
+                    <p style="color: var(--text-secondary);">
+                        الصرح التعليمي الذي يشرف عليه الشيخ، لتعليم العلم الشرعي بمنهجية ميسرة وأسلوب عصري يناسب الجميع.
+                    </p>
+                    <a href="https://www.facebook.com/AbgdOnline/" target="_blank" class="btn-cta">
+                        اشترك الآن <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container" style="margin-top: 0; padding-top: 0;">
+            <h3>جزى الله شيخنا محمد الغليظ عنا خير الجزاء</h3>
+            
+            <div style="margin-top: 30px;">
+                <div class="dev-badge">
+                    <i class="fas fa-code"></i>
+                    <span>تم التطوير بحب بواسطة: <strong>محمد أحمد حمدي</strong></span>
+                </div>
+                
+                <div class="social-grid" style="margin-top: 15px;">
+                    <a href="https://wa.me/qr/72KZ2AZBBNCOI1" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/mohamed.ahmed.498862/" target="_blank" class="social-btn"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/in/mohamdahmedhamdi/" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/Mohamad-Hamdi" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+                    <a href="https://mohamed-hamdy.me" target="_blank" class="social-btn"><i class="fa-solid fa-address-card"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // === تفاعلية السكرول (Animation on Scroll) ===
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // === تغيير الثيم (نهاري / ليلي) ===
+        const themeBtn = document.getElementById('themeBtn');
+        const body = document.body;
+        
+        // التحقق من الوضع المحفوظ
+        if(localStorage.getItem('theme') === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            if(body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // === تفاعل الهيدر ===
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // === تأثير Tilt (إمالة البطاقات) ===
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // حساب نسبة الإمالة
+                const xPct = (x / rect.width - 0.5) * 2; 
+                const yPct = (y / rect.height - 0.5) * 2; 
+
+                card.style.transform = `perspective(1000px) rotateX(${yPct * -1}deg) rotateY(${xPct * 1}deg) translateY(-5px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+        
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+    </script>
+</body>
+</html>
